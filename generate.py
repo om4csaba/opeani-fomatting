@@ -78,7 +78,7 @@ def call_openai_api_with_backoff(prompt):
 def main():
     parser = argparse.ArgumentParser(description='Process prompts and interact with OpenAI API.')
     parser.add_argument('--update_evals', action='store_true', help='Download or update the git repository')
-    parser.add_argument('--extract_prompts', action='store_true', help='Extract and save prompts to input.txt')
+    parser.add_argument('--extract_prompts', action='store_true', help='Extract and save prompts to inputs.txt')
     parser.add_argument('--extract_formats', action='store_true', help='Call OpenAI API for each prompt and save the results to prompts.jsonl')
 
     args = parser.parse_args()
@@ -92,14 +92,14 @@ def main():
         update_repo(repo_url, local_dir)
 
     if args.extract_prompts:
-        # Step 2: Extract and save prompts to input.txt
+        # Step 2: Extract and save prompts to inputs.txt
         folder_path = os.path.join(local_dir, 'evals')
-        output_file = 'data/input.txt'
+        output_file = 'data/inputs.txt'
         prompts = extract_prompts(folder_path)
         save_prompts(prompts, output_file)
     elif args.extract_formats:
-        # Load prompts from input.txt if extract_prompts is not run
-        with open('data/input.txt', 'r', encoding='utf-8') as f:
+        # Load prompts from inputs.txt if extract_prompts is not run
+        with open('data/inputs.txt', 'r', encoding='utf-8') as f:
             prompts = set(line.strip() for line in f)
 
     if args.extract_formats:
